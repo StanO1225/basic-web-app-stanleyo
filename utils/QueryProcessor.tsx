@@ -16,7 +16,7 @@ export default function QueryProcessor(query: string): string {
     const firstInteger = parseInt(sumMatch[1]);
     const secondInteger = parseInt(sumMatch[2]);
     const sum = firstInteger + secondInteger;
-    return `The sum of ${firstInteger} and ${secondInteger} is ${sum}.`;
+    return ('${sum}');
   }
 
   // If the query matches the largest number format, extract the numbers and find the largest one
@@ -27,7 +27,7 @@ export default function QueryProcessor(query: string): string {
     // Find the largest number
     const largest = Math.max(...numbers);
     
-    return `The largest number is ${largest}.`;
+    return '${largest}';
   }
 
   // If the query contains "shakespeare", return information about Shakespeare
