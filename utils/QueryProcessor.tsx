@@ -40,7 +40,7 @@ export default function QueryProcessor(query: string): string {
     const numbers = primeMatch[1].split(', ').map(Number);
 
     // Function to check if a number is prime
-    const isPrime = (num) => {
+    const isPrime = (num : number) => {
       if (num <= 1) return false;
       if (num <= 3) return true;
       if (num % 2 === 0 || num % 3 === 0) return false;
