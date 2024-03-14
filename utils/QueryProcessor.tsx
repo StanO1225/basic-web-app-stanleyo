@@ -13,6 +13,11 @@ export default function QueryProcessor(query: string): string {
 
   const minusRegex = /(\d+) minus (\d+)/;
   
+  const primeRegex = /Which of the following numbers are primes: ((\d+)(, \d+)*)\?/;
+
+  const primeMatch = query.match(primeRegex);
+
+
   // Check if the query matches the sum format
   const sumMatch = query.match(sumRegex);
   
@@ -28,6 +33,30 @@ export default function QueryProcessor(query: string): string {
   const minusMatch = query.match(minusRegex);
 
   const powerMatch = query.match(/(\d+) to the power of (\d+)/)
+
+  // If the query matches the prime number format, extract the numbers and determine which are primes
+  if (primeMatch !== null) {
+    // Extract numbers from the matched string
+    const numbers = primeMatch[1].split(', ').map(Number);
+
+    // Function to check if a number is prime
+    const isPrime = (num) => {
+      if (num <= 1) return false;
+      if (num <= 3) return true;
+      if (num % 2 === 0 || num % 3 === 0) return false;
+      let i = 5;
+      while (i * i <= num) {
+        if (num % i === 0 || num % (i + 2) === 0) return false;
+        i += 6;
+      }
+      return true;
+    };
+
+    // Filter out prime numbers
+    const primeNumbers = numbers.filter(isPrime);
+
+    return primeNumbers.join(', ');
+  }
 
   if (powerMatch !== null) {
     const firstInteger = parseInt(powerMatch[1])
