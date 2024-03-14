@@ -10,6 +10,8 @@ export default function QueryProcessor(query: string): string {
   
   // Regular expression to match the format "What is [integer] multiplied by [integer]?"
   const productRegex = /What is (\d+) multiplied by (\d+)\?/;
+
+  const minusRegex = /(\d+) minus (\d+)/;
   
   // Check if the query matches the sum format
   const sumMatch = query.match(sumRegex);
@@ -22,6 +24,22 @@ export default function QueryProcessor(query: string): string {
 
   // Check if the query matches the product format
   const productMatch = query.match(productRegex);
+
+  const minusMatch = query.match(minusRegex);
+
+  const powerMatch = query.match(/(\d+) to the power of (\d+)/)
+
+  if (powerMatch !== null) {
+    const firstInteger = parseInt(powerMatch[1])
+    const secondInteger = parseInt(powerMatch[2]);
+    return (Math.pow(firstInteger, secondInteger)).toString();
+  }
+
+  if (minusMatch !== null) {
+    const firstInteger = parseInt(minusMatch[1])
+    const secondInteger = parseInt(minusMatch[2]);
+    return (firstInteger - secondInteger).toString();
+  }
 
   // If the query matches the sum format, extract the integers and calculate the sum
   if (sumMatch !== null) {
